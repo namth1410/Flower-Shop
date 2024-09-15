@@ -21,6 +21,7 @@ module.exports = app => {
   // Xóa tất cả các bông hoa
   router.delete("/", flowers.deleteAll);
 
+  //tìm kiếm hoa có tag
   router.post("/tags", flowers.findByTagIds);
 
   app.use('/api/flowers', router);
