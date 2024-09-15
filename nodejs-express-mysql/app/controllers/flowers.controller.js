@@ -40,10 +40,8 @@ exports.findByTagIds = (req, res) => {
     return;
   }
 
-  // Chuyển đổi mảng tagIds thành chuỗi để sử dụng trong model
-  const tagIdsString = tagIds.join(',');
-
-  Flower.findByTagIds(tagIdsString, (err, data) => {
+  // Gọi hàm model để tìm kiếm với mảng tagIds
+  Flower.findByTagIds(tagIds, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
         res.status(404).send({
