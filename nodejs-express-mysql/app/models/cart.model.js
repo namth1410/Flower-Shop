@@ -4,19 +4,62 @@ const sql = require("./db.js");
 const Cart = function(cart) {
   this.id_user = cart.id_user;
   this.id_flower = cart.id_flower;
+  this.quantity = cart.quantity;
 };
 
-// Create a new Cart entry
+// Create or update Cart entry
 Cart.create = (newCart, result) => {
-  sql.query("INSERT INTO cart SET ?", newCart, (err, res) => {
+  // Kiểm tra xem đã có dòng nào với id_user và id_flower này chưa
+  sql.query("SELECT * FROM cart WHERE id_user = ? AND id_flower = ?", [newCart.id_user, newCart.id_flower], (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
       return;
     }
 
-    console.log("created cart: ", { id: res.insertId, ...newCart });
-    result(null, { id: res.insertId, ...newCart });
+    if (res.length) {
+      // Nếu có, thì cập nhật quantity
+      const newQuantity = +res[0].quantity + +newCart.quantity;
+
+      if (newQuantity < 0) {
+        // Trả về lỗi nếu newQuantity < 0
+        console.log("Quantity cannot be less than 0");
+        result({ kind: "invalid_quantity", message: "Quantity cannot be less than 0" }, null);
+        return;
+      } else if (newQuantity === 0) {
+        // Nếu newQuantity = 0 thì xóa dòng
+        Cart.remove(res[0].id, result);
+        return;
+      }
+
+      sql.query("UPDATE cart SET quantity = ? WHERE id_user = ? AND id_flower = ?", [newQuantity, newCart.id_user, newCart.id_flower], (err, resUpdate) => {
+        if (err) {
+          console.log("error updating cart: ", err);
+          result(err, null);
+          return;
+        }
+
+        console.log("updated cart: ", { id: res[0].id, id_user: newCart.id_user, id_flower: newCart.id_flower, quantity: newQuantity });
+        result(null, { id: res[0].id, id_user: newCart.id_user, id_flower: newCart.id_flower, quantity: newQuantity });
+      });
+    } else {
+      if (newCart.quantity < 0) {
+        console.log("Quantity cannot be less than 0");
+        result({ kind: "invalid_quantity", message: "Quantity cannot be less than 0" }, null);
+        return;
+      }
+      // Nếu không có, thì tạo mới
+      sql.query("INSERT INTO cart SET ?", newCart, (err, resInsert) => {
+        if (err) {
+          console.log("error: ", err);
+          result(err, null);
+          return;
+        }
+
+        console.log("created cart: ", { id: resInsert.insertId, ...newCart });
+        result(null, { id: resInsert.insertId, ...newCart });
+      });
+    }
   });
 };
 
