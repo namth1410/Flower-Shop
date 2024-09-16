@@ -12,7 +12,8 @@ exports.create = (req, res) => {
   // Create a Cart entry
   const cart = new Cart({
     id_user: req.body.id_user,
-    id_flower: req.body.id_flower
+    id_flower: req.body.id_flower,
+    quantity: req.body.quantity
   });
 
   // Save Cart in the database

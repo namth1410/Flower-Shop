@@ -6,7 +6,7 @@ module.exports = app => {
     // Tạo một mục giỏ hàng mới
     router.post("/", carts.create);
 
-    // Lấy tất cả các mục giỏ hàng
+    // Lấy tất cả các mục giỏ hàng theo id_user
     router.get("/", carts.findAll);
 
     // Lấy một mục giỏ hàng theo id
