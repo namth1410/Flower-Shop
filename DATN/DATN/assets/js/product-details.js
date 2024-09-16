@@ -1,7 +1,8 @@
+const urlParams = new URLSearchParams(window.location.search);
+const id = urlParams.get("id");
+
 document.addEventListener("DOMContentLoaded", () => {
   // Lấy id từ URL
-  const urlParams = new URLSearchParams(window.location.search);
-  const id = urlParams.get("id");
 
   if (id) {
     // Fetch dữ liệu từ API
@@ -55,3 +56,44 @@ document.addEventListener("DOMContentLoaded", () => {
     console.error("Không tìm thấy id trong URL");
   }
 });
+
+document
+  .getElementById("addToCartButton")
+  .addEventListener("click", function (event) {
+    event.preventDefault(); // Prevent default action of the link
+
+    const id_user = 1; // Replace this with the actual user ID
+    const id_flower = id; // Replace this with the actual flower ID
+    const quantity = 1; // Replace this with the actual flower ID
+
+    const url = "http://namth.muotacademy.com:8080/api/cart";
+
+    const payload = {
+      id_user: id_user,
+      id_flower: id_flower,
+      quantity: quantity,
+    };
+
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to add to cart");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Item added to cart:", data);
+        window.location.href = "cart.html";
+        // Add your success handling here (e.g., show a message)
+      })
+      .catch((error) => {
+        alert(error);
+        console.error("Error adding to cart:", error);
+      });
+  });
