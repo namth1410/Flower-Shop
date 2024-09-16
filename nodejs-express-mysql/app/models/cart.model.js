@@ -1,4 +1,5 @@
 const sql = require("./db.js");
+const Flower = require('./flowers.model.js');
 
 // Constructor
 const Cart = function(cart) {
@@ -43,7 +44,7 @@ Cart.create = (newCart, result) => {
         result(null, { id: res[0].id, id_user: newCart.id_user, id_flower: newCart.id_flower, quantity: newQuantity });
       });
     } else {
-      if (newCart.quantity < 0) {
+      if (newCart.quantity <= 0) {
         console.log("Quantity cannot be less than 0");
         result({ kind: "invalid_quantity", message: "Quantity cannot be less than 0" }, null);
         return;
@@ -91,15 +92,43 @@ Cart.getAll = (id_user, result) => {
     query += ` WHERE id_user = ${id_user}`;
   }
 
-  sql.query(query, (err, res) => {
+  sql.query(query, async (err, cartRes) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
       return;
     }
 
-    console.log("carts: ", res);
-    result(null, res);
+    // Nếu có giỏ hàng, tiếp tục lấy thông tin hoa cho mỗi sản phẩm
+    if (cartRes.length) {
+      let cartsWithFlowerDetails = [];
+
+      // Dùng Promise.all để xử lý tất cả các yêu cầu Flower.findById không đồng bộ
+      try {
+        cartsWithFlowerDetails = await Promise.all(cartRes.map(async (cartItem) => {
+          return new Promise((resolve, reject) => {
+            Flower.findById(cartItem.id_flower, (err, flower) => {
+              if (err) {
+                reject(err);
+              } else {
+                cartItem.flower = flower; // Thêm thông tin hoa vào đối tượng cart
+                resolve(cartItem);
+              }
+            });
+          });
+        }));
+      } catch (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      }
+
+      console.log("carts with flower details: ", cartsWithFlowerDetails);
+      result(null, cartsWithFlowerDetails);
+    } else {
+      // Không có sản phẩm trong giỏ
+      result({ kind: "not_found" }, null);
+    }
   });
 };
 
