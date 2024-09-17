@@ -17,7 +17,8 @@ exports.create = (req, res) => {
     id_flower: req.body.id_flower,
     id_order: req.body.id_order,
     quantity: req.body.quantity,
-    cost: req.body.cost
+    cost: req.body.cost,
+    status: req.body.status
   });
 
   // Save Order in the database
@@ -101,6 +102,39 @@ exports.findByUserIdAndOrderId = (req, res) => {
       });
 
 })};
+
+exports.deleteByUserIdAndOrderId = (req, res) => {
+  const userId = req.params.id_user;
+  const orderId = req.params.id_order;
+
+  // Kiểm tra xem userId và orderId có được cung cấp không
+  if (!userId || !orderId) {
+    res.status(400).send({
+      message: "UserId and OrderId are required!"
+    });
+    return;
+  }
+
+  // Bước 1: Xóa order dựa trên userId và orderId
+  Order.deleteByUserIdAndOrderId(userId, orderId, (err, data) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `Order not found with userId ${userId} and orderId ${orderId}.`
+        });
+      } else {
+        res.status(500).send({
+          message: "Could not delete order with userId " + userId + " and orderId " + orderId
+        });
+      }
+      return;
+    }
+
+    // Thành công, trả về thông báo đã xóa
+    res.send({ message: `Order with userId ${userId} and orderId ${orderId} was deleted successfully!` });
+  });
+};
+
 
 
 
@@ -193,10 +227,10 @@ exports.deleteAll = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-  const id_order = req.query.id_order;
+  const id_user = req.query.id_user; // Sử dụng id_user thay vì id_order
 
   // Bước 1: Lấy danh sách các order
-  Order.getAll(id_order, (err, orders) => {
+  Order.getAll(id_user, (err, orders) => {
     if (err) {
       res.status(500).send({
         message: err.message || "Some error occurred while retrieving orders."
@@ -231,4 +265,39 @@ exports.findAll = (req, res) => {
           message: err.message || "Some error occurred while retrieving flowers."
         });
       });
-  })};
+  });
+};
+exports.updateByUserIdAndOrderId = (req, res) => {
+  const userId = req.params.id_user;
+  const orderId = req.params.id_order;
+  const { status } = req.body;
+
+  // Kiểm tra xem status có được gửi trong request body hay không
+  if (!status) {
+    res.status(400).send({
+      message: "Status is required!"
+    });
+    return;
+  }
+
+  // Bước 1: Cập nhật trạng thái đơn hàng theo userId và orderId
+  Order.updateByUserIdAndOrderId(userId, orderId, status, (err, data) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `Order not found with userId ${userId} and orderId ${orderId}.`
+        });
+      } else {
+        res.status(500).send({
+          message: "Error updating order with userId " + userId + " and orderId " + orderId
+        });
+      }
+      return;
+    }
+
+    // Thành công, trả về thông báo đã cập nhật
+    res.send({ message: `Order with userId ${userId} and orderId ${orderId} was updated successfully!` });
+  });
+};
+
+

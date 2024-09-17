@@ -6,7 +6,8 @@ const Order = function(order) {
   this.id_flower = order.id_flower;
   this.id_order = order.id_order;
   this.quantity = order.quantity;
-  this.cost = order.cost
+  this.cost = order.cost;
+  this.status = order.status
 };
 
 // Tạo một bản ghi mới trong bảng order
@@ -63,15 +64,14 @@ Order.findByUserIdAndOrderId = (id_user, id_order, result) => {
   });
 };
 
-// Lấy tất cả các bản ghi trong bảng order, có thể lọc theo id_order
-Order.getAll = (id_order, result) => {
+Order.getAll = (id_user, result) => {
   let query = "SELECT * FROM `order`";
 
-  if (id_order) {
-    query += ` WHERE id_order LIKE '%${id_order}%'`;
+  if (id_user) {
+    query += " WHERE id_user = ?";
   }
 
-  sql.query(query, (err, res) => {
+  sql.query(query, [id_user], (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
@@ -82,6 +82,7 @@ Order.getAll = (id_order, result) => {
     result(null, res);
   });
 };
+
 
 // Cập nhật thông tin một bản ghi theo ID
 Order.updateById = (id, order, result) => {
@@ -139,6 +140,48 @@ Order.removeAll = result => {
     console.log(`deleted ${res.affectedRows} orders`);
     result(null, res);
   });
+};
+
+Order.deleteByUserIdAndOrderId = (id_user, id_order, result) => {
+  sql.query("DELETE FROM `order` WHERE id_user = ? AND id_order = ?", [id_user, id_order], (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+    }
+
+    if (res.affectedRows == 0) {
+      // Không tìm thấy bản ghi để xóa
+      result({ kind: "not_found" }, null);
+      return;
+    }
+
+    console.log("deleted order with id_user: ", id_user, " and id_order: ", id_order);
+    result(null, res);
+  });
+};
+
+Order.updateByUserIdAndOrderId = (id_user, id_order, status, result) => {
+  sql.query(
+    "UPDATE `order` SET status = ? WHERE id_user = ? AND id_order = ?",
+    [status, id_user, id_order],
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+        return;
+      }
+
+      if (res.affectedRows == 0) {
+        // Không tìm thấy đơn hàng nào để cập nhật
+        result({ kind: "not_found" }, null);
+        return;
+      }
+
+      console.log("updated order with id_user: ", id_user, " and id_order: ", id_order);
+      result(null, res);
+    }
+  );
 };
 
 module.exports = Order;

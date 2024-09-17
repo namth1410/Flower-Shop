@@ -23,6 +23,12 @@ module.exports = app => {
 
     // Tìm đơn hàng theo id_user và id_order
     router.get("/:id_user/:id_order", orders.findByUserIdAndOrderId);
+
+    // xóa đơn hàng theo id_user và id_order
+    router.delete("/:id_user/:id_order", orders.deleteByUserIdAndOrderId);
+
+    // update status cho các đơn hàng theo id_user và id_order
+    router.put("/:id_user/:id_order", orders.updateByUserIdAndOrderId)
   
     app.use('/api/order', router);
   };
