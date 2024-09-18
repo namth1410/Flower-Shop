@@ -13,7 +13,7 @@ jobs:
             - $SSH_KEY_FINGERPRINT
       - run:
           name: Deploy to VPS
-          command: ssh -oStrictHostKeyChecking=no $DEPLOYED_USER@$DEPLOYED_SERVER './backend_cua_Tan.sh'
+          command: ssh -v -oStrictHostKeyChecking=no $DEPLOYED_USER@$DEPLOYED_SERVER 'chmod +x ./backend_cua_Tan.sh && ./backend_cua_Tan.sh'
 
 workflows:
   cicd-ing:
