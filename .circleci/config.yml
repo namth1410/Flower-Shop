@@ -5,12 +5,11 @@ orbs:
 
 jobs:
   deploy:
-    docker: # Bỏ dòng này nếu không sử dụng Docker
-      - image: circleci/python:3.8 # Thay thế hình ảnh Docker nếu cần
+    executor: docker/docker
     steps:
       - add_ssh_keys:
           fingerprints:
-            - $SSH_KEY_FINGERPRINT_WEB_BAN_HOA
+            - $SSH_KEY_FINGERPRINT
       - run:
           name: Deploy to VPS
           command: ssh -oStrictHostKeyChecking=no $DEPLOYED_USER@$DEPLOYED_SERVER './backend_cua_Tan.sh'
