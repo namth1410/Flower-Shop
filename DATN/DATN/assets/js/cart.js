@@ -8,10 +8,11 @@ function updateCart() {
       const cartItemsWrapper = document.getElementById("cart-items");
       const cartItemCountElement = document.querySelector(".cart-item_count");
       // sinh id_order ở đây
+      const id_order = Number(
+        Date.now().toString() + Math.floor(Math.random() * 1000).toString()
+      );
       const dataSaveToLocal = data.map((el) => ({
-        id_order: Number(
-          Date.now().toString() + Math.floor(Math.random() * 1000).toString()
-        ), // unique id_order as a number
+        id_order: id_order, // unique id_order as a number
         id_user: el.id_user,
         id_flower: el.id_flower,
         quantity: el.quantity,
