@@ -2,12 +2,11 @@ version: 2.1
 
 orbs:
   node: circleci/node@4.1
-  docker: circleci/docker@1.6.0
-
 
 jobs:
   deploy:
-    docker: []
+    docker: # Bỏ dòng này nếu không sử dụng Docker
+      - image: circleci/python:3.8 # Thay thế hình ảnh Docker nếu cần
     steps:
       - add_ssh_keys:
           fingerprints:
