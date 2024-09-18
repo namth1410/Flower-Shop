@@ -18,7 +18,6 @@ function updateCart() {
         cost: el.flower.cost,
         status: 200,
       }));
-      localStorage.setItem("order", JSON.stringify(dataSaveToLocal));
       // Clear the cart wrapper before adding new content
       cartItemsWrapper.innerHTML = "";
       let totalCost = 0;
@@ -28,41 +27,41 @@ function updateCart() {
 
         // Create the cart item HTML structure
         const cartItemHTML = `
-          <div class="single-cart-item">
-            <div class="cart-img">
-              <a href="cart.html">
-                <img src="assets/images/product/${item.id_flower}.jpg" alt="${item.flower.name}" />
-              </a>
-            </div>
-            <div class="cart-text">
-              <h5 class="title">
-                <a href="cart.html">${item.flower.name}</a>
-              </h5>
-              <div class="cart-text-btn">
-                <div class="cart-qty">
-                  <span>${item.quantity}×</span>
-                  <span class="cart-price">$${item.flower.cost}</span>
+            <div class="single-cart-item">
+              <div class="cart-img">
+                <a href="cart.html">
+                  <img src="assets/images/product/${item.id_flower}.jpg" alt="${item.flower.name}" />
+                </a>
+              </div>
+              <div class="cart-text">
+                <h5 class="title">
+                  <a href="cart.html">${item.flower.name}</a>
+                </h5>
+                <div class="cart-text-btn">
+                  <div class="cart-qty">
+                    <span>${item.quantity}×</span>
+                    <span class="cart-price">$${item.flower.cost}</span>
+                  </div>
+                  <button type="button" onclick="removeItem(${item.id})">
+                    <i class="ion-trash-b"></i>
+                  </button>
                 </div>
-                <button type="button" onclick="removeItem(${item.id})">
-                  <i class="ion-trash-b"></i>
-                </button>
               </div>
             </div>
-          </div>
-        `;
+          `;
 
         // Append the cart item to the wrapper
         cartItemsWrapper.innerHTML += cartItemHTML;
       });
       cartItemsWrapper.innerHTML += `
-        <div class="cart-price-total d-flex justify-content-between">
-          <h5>Total :</h5>
-          <h5>$${totalCost.toFixed(2)}</h5>
-        </div>
-        <div class="cart-links d-flex justify-content-between">
-          <a class="btn product-cart button-icon flosun-button dark-btn" href="cart.html">View cart</a>
-          <a class="btn flosun-button secondary-btn rounded-0" href="checkout.html">Checkout</a>
-        </div>`;
+          <div class="cart-price-total d-flex justify-content-between">
+            <h5>Total :</h5>
+            <h5>$${totalCost.toFixed(2)}</h5>
+          </div>
+          <div class="cart-links d-flex justify-content-between">
+            <a class="btn product-cart button-icon flosun-button dark-btn" href="cart.html">View cart</a>
+            <a class="btn flosun-button secondary-btn rounded-0" href="checkout.html">Checkout</a>
+          </div>`;
 
       if (cartItemCountElement) {
         cartItemCountElement.textContent = data.length;
@@ -96,33 +95,33 @@ document.addEventListener("DOMContentLoaded", function () {
         subTotal += parseFloat(subtotal);
 
         const row = `
-            <tr>
-              <td class="pro-thumbnail">
-                <a href="#"><img class="img-fluid" src="assets/images/product/${item.flower.image[0].id_flower}.jpg" alt="${item.flower.name}" /></a>
-              </td>
-              <td class="pro-title">
-                <a href="#">${item.flower.name}</a>
-              </td>
-              <td class="pro-price">
-                <span>$${item.flower.cost}</span>
-              </td>
-              <td class="pro-quantity">
-                <div class="quantity">
-                  <div class="cart-plus-minus">
-                    <input class="cart-plus-minus-box" value="${item.quantity}" type="text" readonly>
-                    <div class="dec qtybutton" data-id="${item.flower.idflower}" data-price="${item.flower.cost}" data-quantity="${item.quantity}" data-action="dec">-</div>
-                    <div class="inc qtybutton" data-id="${item.flower.idflower}" data-price="${item.flower.cost}" data-quantity="${item.quantity}" data-action="inc">+</div>
+              <tr>
+                <td class="pro-thumbnail">
+                  <a href="#"><img class="img-fluid" src="assets/images/product/${item.flower.image[0].id_flower}.jpg" alt="${item.flower.name}" /></a>
+                </td>
+                <td class="pro-title">
+                  <a href="#">${item.flower.name}</a>
+                </td>
+                <td class="pro-price">
+                  <span>$${item.flower.cost}</span>
+                </td>
+                <td class="pro-quantity">
+                  <div class="quantity">
+                    <div class="cart-plus-minus">
+                      <input class="cart-plus-minus-box" value="${item.quantity}" type="text" readonly>
+                      <div class="dec qtybutton" data-id="${item.flower.idflower}" data-price="${item.flower.cost}" data-quantity="${item.quantity}" data-action="dec">-</div>
+                      <div class="inc qtybutton" data-id="${item.flower.idflower}" data-price="${item.flower.cost}" data-quantity="${item.quantity}" data-action="inc">+</div>
+                    </div>
                   </div>
-                </div>
-              </td>
-              <td class="pro-subtotal">
-                <span class="subtotal-amount">$${subtotal}</span>
-              </td>
-              <td class="pro-remove">
-                <a href="#" class="remove-item" data-id="${item.id}"><i class="lnr lnr-trash"></i></a>
-              </td>
-            </tr>
-          `;
+                </td>
+                <td class="pro-subtotal">
+                  <span class="subtotal-amount">$${subtotal}</span>
+                </td>
+                <td class="pro-remove">
+                  <a href="#" class="remove-item" data-id="${item.id}"><i class="lnr lnr-trash"></i></a>
+                </td>
+              </tr>
+            `;
 
         // Append the row to the tbody
         tbody.insertAdjacentHTML("beforeend", row);

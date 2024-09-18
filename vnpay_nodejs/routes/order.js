@@ -13,7 +13,6 @@ router.get("/", function (req, res, next) {
 });
 
 router.get("/create_payment_url", function (req, res, next) {
-  console.log(req);
   res.render("order", { title: "Tạo mới đơn hàng", amount: 10000 });
 });
 
@@ -28,7 +27,6 @@ router.get("/refund", function (req, res, next) {
 });
 
 router.post("/create_payment_url", function (req, res, next) {
-  console.log(req.body);
   process.env.TZ = "Asia/Ho_Chi_Minh";
 
   let date = new Date();
@@ -81,8 +79,9 @@ router.post("/create_payment_url", function (req, res, next) {
   let signed = hmac.update(new Buffer(signData, "utf-8")).digest("hex");
   vnp_Params["vnp_SecureHash"] = signed;
   vnpUrl += "?" + querystring.stringify(vnp_Params, { encode: false });
+  res.json({ paymentUrl: vnpUrl });
 
-  res.redirect(vnpUrl);
+  // res.redirect(vnpUrl);
 });
 
 router.get("/vnpay_return", function (req, res, next) {
@@ -109,7 +108,12 @@ router.get("/vnpay_return", function (req, res, next) {
     //Kiem tra xem du lieu trong db co hop le hay khong va thong bao ket qua
 
     // res.render("success", { code: vnp_Params["vnp_ResponseCode"] });
-    res.redirect("http://namth.muotacademy.com");
+    const code = vnp_Params["vnp_ResponseCode"];
+    console.log("vnp_Params");
+    console.log(code);
+    console.log(vnp_Params);
+
+    res.redirect(`http://127.0.0.1:5500/DATN/DATN/order.html`);
   } else {
     res.render("success", { code: "97" });
   }
