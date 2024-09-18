@@ -22,7 +22,7 @@ app.use(
 
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to application 3." });
+  res.json({ message: "Welcome to application 4." });
 });
 
 require("./app/routes/flowers.routes.js")(app);
