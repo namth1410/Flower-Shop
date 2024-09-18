@@ -1,34 +1,22 @@
-# This config was automatically generated from your source code
-# Stacks detected: deps:node:nodejs-express-mysql
 version: 2.1
-orbs:
-  node: circleci/node@5
+
 jobs:
-  test-node:
-    # Install node dependencies and run tests
-    executor: node/default
-    working_directory: ~/project/nodejs-express-mysql
-    steps:
-      - checkout:
-          path: ~/project
-      - node/install-packages:
-          pkg-manager: npm
-      - run:
-          name: Run tests
-          command: echo \"No test specified in package.json\"
   deploy:
-    # This is an example deploy job, not actually used by the workflow
-    docker:
-      - image: cimg/base:stable
+    executor: docker/docker
     steps:
-      # Replace this with steps to deploy to users
+      - add_ssh_keys:
+          fingerprints:
+            - $SSH_KEY_FINGERPRINT
       - run:
-          name: deploy
-          command: '#e.g. ./deploy.sh'
+          name: Deploy to VPS
+          command: ssh -oStrictHostKeyChecking=no $DEPLOYED_USER@$DEPLOYED_SERVER './backend_cua_Tan.sh'
+
 workflows:
-  build-and-test:
+  cicd-ing:
     jobs:
-      - test-node
-    # - deploy:
-    #     requires:
-    #       - test-node
+      - deploy:
+          context: fs
+          filters:
+            branches:
+              only:
+                - ui_user
