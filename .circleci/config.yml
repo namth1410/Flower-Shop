@@ -10,7 +10,7 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - $SSH_KEY_FINGERPRINT
+            - SSH_KEY_FINGERPRINT_WEB_BAN_HOA
       - run:
           name: Deploy to VPS
           command: ssh -v -oStrictHostKeyChecking=no $DEPLOYED_USER@$DEPLOYED_SERVER 'chmod +x ./backend_cua_Tan.sh && ./backend_cua_Tan.sh'
