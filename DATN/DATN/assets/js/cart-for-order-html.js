@@ -73,7 +73,7 @@ function updateCart() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  const url = "http://namth.muotacademy.com:8080/api/cart?id_user=1";
+  const url = "http://namth.muotacademy.com:8080/api/order?id_user=1";
   const tbody = document.querySelector("tbody");
   updateCart();
 
@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const row = `
               <tr>
                 <td class="pro-thumbnail">
-                  <a href="#"><img class="img-fluid" src="assets/images/product/${item.flower.image[0].id_flower}.jpg" alt="${item.flower.name}" /></a>
+                  <a href="#"><span>${item.id_order}</span></a>
                 </td>
                 <td class="pro-title">
                   <a href="#">${item.flower.name}</a>
