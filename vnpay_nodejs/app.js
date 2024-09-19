@@ -8,7 +8,11 @@ var order = require('./routes/order');
 var cors = require('cors'); 
 
 var app = express();
-app.use(cors());
+var corsOptions = {
+  origin: true,
+};
+
+app.use(cors(corsOptions));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
