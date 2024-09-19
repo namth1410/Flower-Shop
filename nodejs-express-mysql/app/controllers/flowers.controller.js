@@ -1,12 +1,13 @@
 const Flower = require("../models/flowers.model.js");
 
-// Create and Save a new Flower
+// Create and Save a new Flower and Image
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body) {
+  if (!req.body || !req.body.image_source) {
     res.status(400).send({
-      message: "Content can not be empty!"
+      message: "Content and image source cannot be empty!"
     });
+    return;
   }
 
   // Create a Flower
@@ -18,15 +19,33 @@ exports.create = (req, res) => {
   });
 
   // Save Flower in the database
-  Flower.create(flower, (err, data) => {
-    if (err)
+  Flower.create(flower, (err, flowerData) => {
+    if (err) {
       res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating the Flower."
+        message: err.message || "Some error occurred while creating the Flower."
       });
-    else res.send(data);
+      return;
+    }
+
+    // After the Flower is created, create an Image with the flower's ID
+    const image = new Image({
+      id_flower: flowerData.id,  // Use the ID from the created flower
+      image_source: req.body.image_source
+    });
+
+    // Save Image in the database
+    Image.create(image, (err, imageData) => {
+      if (err) {
+        res.status(500).send({
+          message: err.message || "Some error occurred while creating the Image."
+        });
+      } else {
+        res.send({ flower: flowerData, image: imageData });
+      }
+    });
   });
 };
+
 
 // Tìm hoa theo nhiều id tag từ JSON request
 exports.findByTagIds = (req, res) => {
