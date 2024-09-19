@@ -106,7 +106,7 @@ CREATE TABLE `flower` (
   `description` varchar(45) NOT NULL,
   `tag` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idflower`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -115,7 +115,7 @@ CREATE TABLE `flower` (
 
 LOCK TABLES `flower` WRITE;
 /*!40000 ALTER TABLE `flower` DISABLE KEYS */;
-INSERT INTO `flower` VALUES (1,'Rose','10.00','A beautiful red rose','0,1,3,5,'),(2,'Red Rose','10.00','Beautiful red roses','0,1,2,'),(3,'White Tulip','12.50','Elegant white tulips','0,2,3,'),(4,'Yellow Lily','8.00','Bright yellow lilies','0,3,4,'),(5,'Purple Orchid','15.00','Stunning purple orchids','0,4,5,'),(6,'Golden Sunflower','5.00','Vibrant golden sunflowers','0,5,6,'),(7,'Pink Daisy','7.00','Lovely pink daisies','0,6,7,'),(8,'Red Peony','14.00','Luxurious red peonies','0,7,8,'),(9,'White Carnation','9.00','Delicate white carnations','0,8,9,'),(10,'Blue Iris','13.00','Majestic blue irises','0,9,10,'),(11,'Yellow Chrysanthemum','11.00','Sunny yellow chrysanthemums','0,10,1,');
+INSERT INTO `flower` VALUES (1,'Rose','10.00','A beautiful red rose','0,1,3,5,'),(2,'Red Rose','10.00','Beautiful red roses','0,1,2,'),(3,'White Tulip','12.50','Elegant white tulips','0,2,3,'),(4,'Yellow Lily','8.00','Bright yellow lilies','0,3,4,'),(5,'Purple Orchid','15.00','Stunning purple orchids','0,4,5,'),(6,'Golden Sunflower','5.00','Vibrant golden sunflowers','0,5,6,'),(7,'Pink Daisy','7.00','Lovely pink daisies','0,6,7,'),(8,'Red Peony','14.00','Luxurious red peonies','0,7,8,'),(9,'White Carnation','9.00','Delicate white carnations','0,8,9,'),(10,'Blue Iris','13.00','Majestic blue irises','0,9,10,'),(11,'Yellow Chrysanthemum','11.00','Sunny yellow chrysanthemums','0,10,1,'),(12,'Rose','10.00','A beautiful red rose','gift'),(13,'Rose','10.00','A beautiful red rose','gift');
 /*!40000 ALTER TABLE `flower` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -131,7 +131,7 @@ CREATE TABLE `image` (
   `id_flower` int NOT NULL,
   `image_source` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -140,7 +140,7 @@ CREATE TABLE `image` (
 
 LOCK TABLES `image` WRITE;
 /*!40000 ALTER TABLE `image` DISABLE KEYS */;
-INSERT INTO `image` VALUES (1,1,'rose1.jpg'),(2,2,'tulip1.jpg'),(3,3,'lily1.jpg'),(4,4,'orchid1.jpg'),(5,5,'sunflower1.jpg'),(6,6,'daisy1.jpg'),(7,7,'peony1.jpg'),(8,8,'carnation1.jpg'),(9,9,'iris1.jpg'),(10,10,'chrysanthemum1.jpg'),(11,2,'chrynthemum1.jpg');
+INSERT INTO `image` VALUES (1,1,'1'),(2,2,'2'),(3,3,'3'),(4,4,'4'),(5,5,'5'),(6,6,'6'),(7,7,'7'),(8,8,'8'),(9,9,'9'),(10,10,'1'),(11,2,'2'),(12,13,'12');
 /*!40000 ALTER TABLE `image` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -209,4 +209,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-09-18 23:31:13
+-- Dump completed on 2024-09-20  0:31:25
