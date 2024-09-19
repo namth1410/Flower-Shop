@@ -1,4 +1,5 @@
 const Flower = require("../models/flowers.model.js");
+const Image = require("../models/image.model.js");
 
 // Create and Save a new Flower and Image
 exports.create = (req, res) => {
