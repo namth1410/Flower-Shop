@@ -495,7 +495,8 @@ document.addEventListener("DOMContentLoaded", function () {
       const tagValue = this.getAttribute("data-tag");
 
       // Chuyển hướng đến trang shop.html với query string chứa tag đã chọn
-      window.location.href = `http://localhost:5500/DATN/DATN/shop.html?tags=${tagValue}`;
+      window.location.href = `/shop.html?tags=${tagValue}`;
+      // window.location.href = `http://localhost:5500/DATN/DATN/shop.html?tags=${tagValue}`;
     });
   });
 });

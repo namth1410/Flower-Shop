@@ -63,14 +63,15 @@ document
     const inputQuantityElement = document.getElementById("quantity-value");
     console.log(typeof parseInt(inputQuantityElement.value));
 
-    const id_user = 1; // Replace this with the actual user ID
+    const user = JSON.parse(localStorage.getItem("user"));
+
     const id_flower = id; // Replace this with the actual flower ID
     const quantity = parseInt(inputQuantityElement.value); // Replace this with the actual flower ID
 
     const url = "http://namth.muotacademy.com:8080/api/cart";
 
     const payload = {
-      id_user: id_user,
+      id_user: user.id,
       id_flower: id_flower,
       quantity: quantity,
     };

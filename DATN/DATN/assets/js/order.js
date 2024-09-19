@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
       .then((result) => {
         if (!result.message) {
           console.log("Order posted successfully:", result);
-          localStorage.clear();
+          localStorage.removeItem("order");
           fetchOrderByUserId(1);
           clearCart();
         }

@@ -113,7 +113,8 @@ router.get("/vnpay_return", function (req, res, next) {
     console.log(code);
     console.log(vnp_Params);
 
-    res.redirect(`http://127.0.0.1:5500/DATN/DATN/order.html`);
+    res.redirect(`http://namth.muotacademy.com/order.html`);
+    // res.redirect(`http://127.0.0.1:5500/DATN/DATN/order.html`);
   } else {
     res.render("success", { code: "97" });
   }

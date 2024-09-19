@@ -1,5 +1,7 @@
 function updateCart() {
-  const url = "http://namth.muotacademy.com:8080/api/cart?id_user=1";
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  const url = `http://namth.muotacademy.com:8080/api/cart?id_user=${user.id}`;
 
   fetch(url)
     .then((response) => response.json())
@@ -75,7 +77,9 @@ function updateCart() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  const url = "http://namth.muotacademy.com:8080/api/cart?id_user=1";
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  const url = `http://namth.muotacademy.com:8080/api/cart?id_user=${user.id}`;
   const tbody = document.querySelector("tbody");
   updateCart();
 
@@ -133,7 +137,11 @@ document.addEventListener("DOMContentLoaded", function () {
       totalAmountElement.textContent = `$${(subTotal + 70).toFixed(2)}`;
       const updateQuantity = (id_flower, change) => {
         const url = `http://namth.muotacademy.com:8080/api/cart`;
-        const payload = { id_user: 1, id_flower: id_flower, quantity: change };
+        const payload = {
+          id_user: user.id,
+          id_flower: id_flower,
+          quantity: change,
+        };
 
         fetch(url, {
           method: "POST", // Adjust method if necessary (PATCH or PUT)
