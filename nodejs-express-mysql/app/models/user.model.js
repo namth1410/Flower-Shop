@@ -41,6 +41,25 @@ User.findById = (id, result) => {
   });
 };
 
+// Find user by account
+User.findByAccount = (account, result) => {
+  sql.query(`SELECT * FROM user WHERE account = ?`, [account], (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+    }
+
+    if (res.length) {
+      result(null, res[0]);
+      return;
+    }
+
+    // No user found with the given account
+    result(null, null);
+  });
+};
+
 // Lấy tất cả các bản ghi trong bảng user, có thể lọc theo account
 User.getAll = (account, result) => {
   let query = "SELECT * FROM user";
