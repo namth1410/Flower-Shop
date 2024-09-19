@@ -28,6 +28,34 @@ function fetchOrderByUserId(id_user) {
     });
 }
 
+function clearCart() {
+  // Xây dựng URL với tham số id_user
+  const url = `http://namth.muotacademy.com:8080/api/cart`;
+
+  // Thực hiện yêu cầu GET
+  return fetch(url, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      // Xử lý dữ liệu nhận được từ API
+      console.log("ĐÃ clear giỏ hàng:", data);
+      return data;
+    })
+    .catch((error) => {
+      // Xử lý lỗi nếu có
+      console.error("Lỗi khi clear giỏ hàng:", error);
+    });
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   // Khởi tạo dữ liệu và lưu vào localStorage
 
@@ -53,6 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
           console.log("Order posted successfully:", result);
           localStorage.clear();
           fetchOrderByUserId(1);
+          clearCart();
         }
       })
       .catch((error) => {
