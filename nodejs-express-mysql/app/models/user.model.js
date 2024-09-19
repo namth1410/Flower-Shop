@@ -83,8 +83,8 @@ User.getAll = (account, result) => {
 // Cập nhật thông tin một bản ghi theo ID
 User.updateById = (id, user, result) => {
   sql.query(
-    "UPDATE user SET account = ?, password = ?, role = ? WHERE id = ?",
-    [user.account, user.password, user.role, id],
+    "UPDATE user SET password = ? WHERE id = ?",
+    [user.password, id],
     (err, res) => {
       if (err) {
         console.log("error: ", err);
