@@ -495,7 +495,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const tagValue = this.getAttribute("data-tag");
 
       // Chuyển hướng đến trang shop.html với query string chứa tag đã chọn
-      window.location.href = `http://127.0.0.1:5500/DATN/DATN/shop.html?tags=${tagValue}`;
+      window.location.href = `http://namth.muotacademy.com/shop.html?tags=${tagValue}`;
     });
   });
 });
