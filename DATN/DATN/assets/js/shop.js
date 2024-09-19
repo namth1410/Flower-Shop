@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="product-item">
           <div class="single-product position-relative mr-0 ml-0">
             <div class="product-image">
-              <a class="d-block" href="product-details.html">
+              <a class="d-block" href="product-details.html?id=${item.idflower}">
                 <img
                   src="assets/images/product/${item.idflower}.jpg"
                   alt=""
@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <div class="product-content">
               <div class="product-title">
                 <h4 class="title-2">
-                  <a href="product-details.html"
+                  <a href="product-details.html?id=${item.idflower}"
                     >${item.name}</a
                   >
                 </h4>
@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <div class="product-content-listview">
               <div class="product-title">
                 <h4 class="title-2">
-                  <a href="product-details.html"
+                  <a href="product-details.html?id=${item.idflower}"
                     >${item.name}</a
                   >
                 </h4>
@@ -170,7 +170,7 @@ document.addEventListener("DOMContentLoaded", function () {
       .catch((error) => {
         console.error("Error fetching the cart:", error);
       });
-  } else if (nameQuery) {
+  } else {
     url = `http://namth.muotacademy.com:8080/api/flowers?name=${nameQuery}`;
     fetch(url)
       .then((response) => response.json())
@@ -187,7 +187,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="product-item">
           <div class="single-product position-relative mr-0 ml-0">
             <div class="product-image">
-              <a class="d-block" href="product-details.html">
+              <a class="d-block" href="product-details.html?id=${item.idflower}">
                 <img
                   src="assets/images/product/${item.idflower}.jpg"
                   alt=""
@@ -232,7 +232,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <div class="product-content">
               <div class="product-title">
                 <h4 class="title-2">
-                  <a href="product-details.html"
+                  <a href="product-details.html?id=${item.idflower}"
                     >${item.name}</a
                   >
                 </h4>
@@ -255,7 +255,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <div class="product-content-listview">
               <div class="product-title">
                 <h4 class="title-2">
-                  <a href="product-details.html"
+                  <a href="product-details.html?id=${item.idflower}"
                     >${item.name}</a
                   >
                 </h4>
@@ -495,7 +495,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const tagValue = this.getAttribute("data-tag");
 
       // Chuyển hướng đến trang shop.html với query string chứa tag đã chọn
-      window.location.href = `http://namth.muotacademy.com/shop.html?tags=${tagValue}`;
+      window.location.href = `http://localhost:5500/DATN/DATN/shop.html?tags=${tagValue}`;
     });
   });
 });
