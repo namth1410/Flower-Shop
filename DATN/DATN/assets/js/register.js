@@ -32,7 +32,7 @@ document
 
       const result = await response.json();
 
-      if (response.message) {
+      if (result.message) {
         alert(`Registration failed: ${result.message}`);
       } else {
         // window.location.href = "/DATN/DATN/login.html";

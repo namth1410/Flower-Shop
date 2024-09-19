@@ -33,12 +33,12 @@ document
 
       console.log(result);
 
-      if (response.message) {
+      if (result.message) {
         // Xử lý đăng nhập thành công
         alert(`Login failed: ${result.message}`);
       } else {
         localStorage.setItem("user", JSON.stringify(result));
-        window.location.href = "/index.html";
+        // window.location.href = "/index.html";
         // window.location.href = "/DATN/DATN/index.html";
       }
     } catch (error) {
