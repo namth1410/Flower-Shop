@@ -16,7 +16,7 @@ function updateCart() {
       // Clear the cart wrapper before adding new content
       cartItemsWrapper.innerHTML = "";
 
-      if (data.message) {
+      if (data.message || data.sqlMessage) {
         cartItemCountElement.textContent = 0;
         return;
       }

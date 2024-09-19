@@ -11,12 +11,17 @@ document.addEventListener("DOMContentLoaded", function () {
         // Tạo HTML mới cho các phần tử .swiper-slide
         let slidesHtml = data.reduce((html, flower, index) => {
           const { idflower, name, cost, image } = flower;
+
           const productHtml = `
             <div class="single-product position-relative mb-30">
               <div class="product-image">
                 <a class="d-block" href="product-details.html?id=${idflower}">
-                  <img src="assets/images/product/${idflower}.jpg" alt="" class="product-image-1 w-100">
-                  <img src="assets/images/product/${idflower}.jpg" alt="" class="product-image-2 position-absolute w-100">
+                  <img src="assets/images/product/${
+                    image?.[0]?.image_source ?? 1
+                  }.jpg" alt="" class="product-image-1 w-100">
+                  <img src="assets/images/product/${
+                    image?.[0]?.image_source ?? 1
+                  }.jpg" alt="" class="product-image-2 position-absolute w-100">
                 </a>
                 <span class="onsale">Sale!</span>
                 <div class="add-action d-flex flex-column position-absolute">

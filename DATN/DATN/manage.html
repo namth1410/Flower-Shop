@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quản lý sản phẩm</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+      }
+
+      .container {
+        width: 80%;
+        margin: auto;
+        padding: 20px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      h1,
+      h2 {
+        color: #333;
+      }
+
+      form {
+        margin-bottom: 20px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+
+      input,
+      textarea,
+      button {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+
+      input,
+      textarea {
+        box-sizing: border-box;
+      }
+
+      button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      .search-bar {
+        margin-bottom: 20px;
+      }
+
+      .search-bar input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+
+      .product-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+
+      .product-item {
+        background: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 10px;
+        width: 100%;
+        max-width: 300px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .product-image {
+        max-width: 100%;
+        border-radius: 8px;
+      }
+
+      .product-name {
+        font-size: 18px;
+        margin: 10px 0 5px;
+      }
+
+      .product-cost {
+        font-size: 16px;
+        color: #333;
+      }
+
+      .product-description {
+        font-size: 14px;
+        color: #666;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Nhập thông tin sản phẩm</h1>
+      <form id="product-form">
+        <label for="product-image">Chọn ảnh:</label>
+        <input
+          type="file"
+          id="product-image"
+          name="product-image"
+          accept="image/*"
+          required
+        />
+
+        <label for="product-name">Tên sản phẩm:</label>
+        <input type="text" id="product-name" name="name" required />
+
+        <label for="product-cost">Giá sản phẩm:</label>
+        <input type="number" id="product-cost" name="cost" required />
+
+        <label for="product-description">Mô tả sản phẩm:</label>
+        <textarea
+          id="product-description"
+          name="description"
+          required
+        ></textarea>
+
+        <button type="submit">Thêm sản phẩm</button>
+      </form>
+
+      <div class="search-bar">
+        <input
+          type="text"
+          id="search-input"
+          placeholder="Tìm kiếm theo tên sản phẩm..."
+        />
+      </div>
+
+      <h2>Danh sách sản phẩm</h2>
+      <div class="product-list" id="product-list">
+        <!-- Danh sách sản phẩm sẽ được render ở đây -->
+      </div>
+    </div>
+
+    <script src="assets/js/manage.js"></script>
+  </body>
+</html>

@@ -34,9 +34,13 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="product-item">
           <div class="single-product position-relative mr-0 ml-0">
             <div class="product-image">
-              <a class="d-block" href="product-details.html?id=${item.idflower}">
+              <a class="d-block" href="product-details.html?id=${
+                item.idflower
+              }">
                 <img
-                  src="assets/images/product/${item.idflower}.jpg"
+                  src="assets/images/product/${
+                    item.image?.[0]?.image_source ?? 1
+                  }.jpg"
                   alt=""
                   class="product-image-1 w-100"
                 />
@@ -187,9 +191,13 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="product-item">
           <div class="single-product position-relative mr-0 ml-0">
             <div class="product-image">
-              <a class="d-block" href="product-details.html?id=${item.idflower}">
+              <a class="d-block" href="product-details.html?id=${
+                item.idflower
+              }">
                 <img
-                  src="assets/images/product/${item.idflower}.jpg"
+                  src="assets/images/product/${
+                    item.image?.[0]?.image_source ?? 1
+                  }.jpg"
                   alt=""
                   class="product-image-1 w-100"
                 />
