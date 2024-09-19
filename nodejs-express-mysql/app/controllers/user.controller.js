@@ -27,6 +27,46 @@ exports.create = (req, res) => {
   });
 };
 
+// Login function
+exports.login = (req, res) => {
+  // Validate request
+  if (!req.body.account || !req.body.password) {
+    return res.status(400).send({
+      message: "Account and password can not be empty!"
+    });
+  }
+
+  // Find user by account
+  User.findByAccount(req.body.account, (err, user) => {
+    if (err) {
+      return res.status(500).send({
+        message: err.message || "Some error occurred while retrieving the user."
+      });
+    }
+
+    // If no user found with the given account
+    if (!user) {
+      return res.status(404).send({
+        message: "User not found."
+      });
+    }
+
+    // Check if password matches
+    if (user.password !== req.body.password) {
+      return res.status(401).send({
+        message: "Invalid password."
+      });
+    }
+
+    // If credentials are valid, return user data (or a token, if using JWT)
+    res.send({
+      id: user.id,
+      account: user.account,
+      role: user.role
+    });
+  });
+};
+
 // Retrieve all Users from the database (with condition).
 exports.findAll = (req, res) => {
   const account = req.query.account;
