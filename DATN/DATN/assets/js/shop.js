@@ -179,8 +179,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         shopWrapper.innerHTML = "";
         if (data.message) {
-            return;
-          }
+          return;
+        }
         data.forEach((item) => {
           const productItem = `
         <div class="col-md-6 col-sm-6 col-lg-4 col-custom product-area">
@@ -478,7 +478,14 @@ document.addEventListener("DOMContentLoaded", function () {
   //     });
 
   const tags = document.querySelectorAll(".tags a");
-
+  tags.forEach((tag) => {
+    const tagId = tag.getAttribute("data-tag");
+    if (tagId === tagQuery) {
+      // Thêm CSS trực tiếp cho thẻ <a> đang được chọn
+      tag.style.backgroundColor = "#007bff"; // Màu nền
+      tag.style.color = "#ffffff"; // Màu chữ
+    }
+  });
   // Thêm sự kiện click cho từng thẻ
   tags.forEach((tag) => {
     tag.addEventListener("click", function (event) {
