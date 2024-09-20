@@ -126,6 +126,22 @@
         font-size: 14px;
         color: #666;
       }
+
+      select {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        margin-bottom: 20px; /* Thêm khoảng cách dưới */
+        background-color: #fff; /* Nền trắng */
+        transition: border-color 0.3s ease;
+      }
+
+      select:focus {
+        border-color: #007bff; /* Đổi màu viền khi chọn */
+        outline: none; /* Xóa viền mặc định của trình duyệt */
+      }
     </style>
   </head>
   <body>
@@ -133,6 +149,9 @@
       <h1>Quản lý sản phẩm</h1>
       <div class="navigation">
         <a href="manage-order.html">Quản lý đơn hàng</a>
+      </div>
+      <div class="navigation">
+        <a href="manage-user.html">Quản lý người dùng</a>
       </div>
       <h1>Nhập thông tin sản phẩm</h1>
       <form id="product-form">
@@ -157,6 +176,20 @@
           name="description"
           required
         ></textarea>
+
+        <label for="product-tag">Chọn tag:</label>
+        <select id="product-tag" name="tag" required>
+          <option value="" disabled selected>-- Chọn tag --</option>
+          <option value="1">Roses</option>
+          <option value="2">Tulips</option>
+          <option value="3">Lilies</option>
+          <option value="4">Orchids</option>
+          <option value="5">Sunflowers</option>
+          <option value="6">Daisies</option>
+          <option value="7">Peonies</option>
+          <option value="8">Carnations</option>
+          <option value="9">Irises</option>
+        </select>
 
         <button type="submit">Thêm sản phẩm</button>
       </form>

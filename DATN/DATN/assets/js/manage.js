@@ -80,6 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const cost = formData.get("cost");
     const description = formData.get("description");
     const imageFile = formData.get("product-image");
+    const tagId = formData.get("tag"); // Lấy ID của tag
 
     if (!name || !cost || !description || !imageFile) {
       alert("Vui lòng điền đầy đủ thông tin sản phẩm.");
@@ -100,6 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
           cost,
           description,
           image_source: imageUrl,
+          tag: tagId,
         }),
       });
 
