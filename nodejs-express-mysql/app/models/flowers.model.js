@@ -22,6 +22,54 @@ Flower.create = (newFlower, result) => {
   });
 };
 
+Flower.findByPriceRange = (minCost, maxCost, result) => {
+  const query = `
+    SELECT flower.*, image.image_source 
+    FROM flower 
+    LEFT JOIN image ON flower.idflower = image.id_flower 
+    WHERE flower.cost BETWEEN ? AND ?
+  `;
+
+  sql.query(query, [minCost, maxCost], (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+    }
+
+    if (res.length) {
+      // Nhóm các kết quả lại để mỗi bông hoa chỉ xuất hiện một lần, và ảnh sẽ được thêm vào danh sách
+      const flowers = {};
+      
+      res.forEach(row => {
+        const flowerId = row.idflower;
+        
+        if (!flowers[flowerId]) {
+          flowers[flowerId] = {
+            id: flowerId,
+            name: row.name,
+            cost: row.cost,
+            description: row.description,
+            tag: row.tag,
+            images: []
+          };
+        }
+        
+        if (row.image_source) {
+          flowers[flowerId].images.push(row.image_source);  // Thêm ảnh vào danh sách ảnh
+        }
+      });
+
+      // Trả về mảng các đối tượng hoa
+      result(null, Object.values(flowers));
+    } else {
+      result({ kind: "not_found" }, null);
+    }
+  });
+};
+
+
+
 // Tìm hoa theo ID và lấy thêm ảnh
 Flower.findById = (id, result) => {
   // Tìm hoa theo ID

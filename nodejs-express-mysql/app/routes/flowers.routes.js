@@ -24,5 +24,8 @@ module.exports = app => {
   //tìm kiếm hoa có tag
   router.post("/tags", flowers.findByTagIds);
 
+  //tìm kiếm hoa theo khoảng giá
+  router.post("/price", flowers.findByPriceRange);
+
   app.use('/api/flowers', router);
 };

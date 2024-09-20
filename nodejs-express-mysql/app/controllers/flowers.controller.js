@@ -47,6 +47,45 @@ exports.create = (req, res) => {
   });
 };
 
+// Find flowers within a price range from req.body
+exports.findByPriceRange = (req, res) => {
+  // Validate request: Ensure both minCost and maxCost are provided in the body
+  if (!req.body.minCost || !req.body.maxCost) {
+    res.status(400).send({
+      message: "minCost and maxCost are required in the request body!"
+    });
+    return;
+  }
+
+  const minCost = parseFloat(req.body.minCost);
+  const maxCost = parseFloat(req.body.maxCost);
+
+  // Validate if minCost and maxCost are valid numbers
+  if (isNaN(minCost) || isNaN(maxCost)) {
+    res.status(400).send({
+      message: "Invalid minCost or maxCost. They must be valid numbers."
+    });
+    return;
+  }
+
+  // Call the model's findByPriceRange method
+  Flower.findByPriceRange(minCost, maxCost, (err, data) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `No flowers found in the price range between ${minCost} and ${maxCost}.`
+        });
+      } else {
+        res.status(500).send({
+          message: "Error occurred while retrieving flowers."
+        });
+      }
+    } else {
+      res.send(data);
+    }
+  });
+};
+
 
 // Tìm hoa theo nhiều id tag từ JSON request
 exports.findByTagIds = (req, res) => {
@@ -77,6 +116,7 @@ exports.findByTagIds = (req, res) => {
     }
   });
 };
+
 
 
 // Retrieve all Flowers from the database (with condition).
