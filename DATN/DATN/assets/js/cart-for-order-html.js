@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
                   <span class="subtotal-amount">$${subtotal}</span>
                 </td>
                 <td class="pro-remove">
-                  <a href="#" class="remove-item" data-id="${item.id}"><i class="lnr lnr-checkmark-circle" style="color: #28a745;"></i></a>
+                  <a href="#" class="remove-item" data-id="${item.id}">${item.status}</a>
                 </td>
               </tr>
             `;

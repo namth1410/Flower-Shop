@@ -19,7 +19,7 @@ function updateCart() {
         id_flower: el.id_flower,
         quantity: el.quantity,
         cost: el.flower.cost,
-        status: 200,
+        status: "Paid",
       }));
       localStorage.setItem("order", JSON.stringify(dataSaveToLocal));
       // Clear the cart wrapper before adding new content

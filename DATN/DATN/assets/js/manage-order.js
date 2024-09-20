@@ -12,6 +12,15 @@ document.addEventListener("DOMContentLoaded", function () {
   let ordersData = [];
   let debounceTimeout;
 
+  const statuses = [
+    "Pending",
+    "Paid",
+    "Processing",
+    "Shipped",
+    "Delivered",
+    "Cancelled",
+  ];
+
   // Fetch orders from the API
   fetch(apiUrl)
     .then((response) => {
@@ -61,7 +70,20 @@ document.addEventListener("DOMContentLoaded", function () {
                       <td>${order.flower.name}</td>
                       <td>${order.quantity}</td>
                       <td>${order.cost}</td>
-                      <td>${order.status}</td>
+                      <td>
+                          <select data-order-id="${
+                            order.id_order
+                          }" data-user-id="${order.id_user}">
+                              ${statuses
+                                .map(
+                                  (status) =>
+                                    `<option value="${status}" ${
+                                      status === order.status ? "selected" : ""
+                                    }>${status}</option>`
+                                )
+                                .join("")}
+                          </select>
+                      </td>
                       <td>${new Date(order.create).toLocaleDateString()}</td>
                   </tr>
               `;
@@ -72,6 +94,42 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Insert the table into the content div
     contentDiv.innerHTML = table;
+
+    // Add event listeners for each select element
+    document.querySelectorAll("select").forEach((select) => {
+      select.addEventListener("change", function () {
+        const orderId = this.getAttribute("data-order-id");
+        const userId = this.getAttribute("data-user-id");
+        const newStatus = this.value;
+
+        updateOrderStatus(userId, orderId, newStatus);
+      });
+    });
+  }
+
+  // Function to update order status
+  function updateOrderStatus(userId, orderId, newStatus) {
+    const url = `http://namth.muotacademy.com:8080/api/order/${userId}/${orderId}`;
+
+    fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ status: newStatus }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to update order status");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Order status updated:", data);
+      })
+      .catch((error) => {
+        console.error("Error updating status:", error);
+      });
   }
 
   // Debounce function to limit the number of search requests
