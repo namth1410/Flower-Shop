@@ -3,8 +3,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (user?.role !== "admin") {
     window.location.href = "/index.html";
-    // window.location.href = "/DATN/DATN/index.html";
   }
+
   const form = document.getElementById("product-form");
   const productList = document.getElementById("product-list");
   const searchInput = document.getElementById("search-input");
@@ -18,17 +18,51 @@ document.addEventListener("DOMContentLoaded", () => {
       const response = await fetch(apiUrl);
       const data = await response.json();
 
-      productList.innerHTML = ""; // Xóa nội dung cũ
+      productList.innerHTML = "";
       data.forEach((product) => {
         const productDiv = document.createElement("div");
         productDiv.classList.add("product-item");
         productDiv.innerHTML = `
-                    <img src="assets/images/product/${product.idflower}.jpg" alt="${product.name}" class="product-image">
-                    <h3 class="product-name">${product.name}</h3>
-                    <p class="product-cost">${product.cost} VND</p>
-                    <p class="product-description">${product.description}</p>
-                `;
+        <img src="assets/images/product/${product.idflower}.jpg" alt="${product.name}" class="product-image">
+        <h3 class="product-name">${product.name}</h3>
+        <p class="product-cost">${product.cost} VND</p>
+        <p class="product-description">${product.description}</p>
+        <button class="delete-btn" data-id="${product.idflower}" 
+          style="
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+          ">
+          Xóa
+        </button>
+      `;
+
         productList.appendChild(productDiv);
+
+        // Gắn sự kiện click cho nút Xóa
+        const deleteButton = productDiv.querySelector(".delete-btn");
+        deleteButton.addEventListener("click", async () => {
+          const idflower = deleteButton.getAttribute("data-id");
+          const confirmed = confirm("Bạn có chắc chắn muốn xóa sản phẩm này?");
+          if (confirmed) {
+            try {
+              await fetch(
+                `http://namth.muotacademy.com:8080/api/flowers/${idflower}`,
+                {
+                  method: "DELETE",
+                }
+              );
+              alert("Sản phẩm đã được xóa!");
+              fetchProducts(); // Cập nhật danh sách sản phẩm
+            } catch (error) {
+              console.error("Lỗi khi xóa sản phẩm:", error);
+            }
+          }
+        });
       });
     } catch (error) {
       console.error("Lỗi khi fetch sản phẩm:", error);
@@ -47,7 +81,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const description = formData.get("description");
     const imageFile = formData.get("product-image");
 
-    // Kiểm tra tất cả các trường đều được điền
     if (!name || !cost || !description || !imageFile) {
       alert("Vui lòng điền đầy đủ thông tin sản phẩm.");
       return;
@@ -55,8 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       const imageUrl = imageFile.name.replace(/\.jpg$/, ""); // Loại bỏ đuôi .jpg
-      //  cắt bỏ đuôi .jpg của ảnh, đường dẫn chính là name
-      // Log đường dẫn ảnh
+
       // Đăng tải thông tin sản phẩm cùng với đường dẫn ảnh
       await fetch("http://namth.muotacademy.com:8080/api/flowers", {
         method: "POST",
