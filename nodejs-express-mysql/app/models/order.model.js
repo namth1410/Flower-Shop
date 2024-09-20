@@ -84,11 +84,10 @@ Order.getAll = (id_user, result) => {
 };
 
 
-// Cập nhật thông tin một bản ghi theo ID
-Order.updateById = (id, order, result) => {
+Order.updateStatusById = (id, status, result) => {
   sql.query(
-    "UPDATE `order` SET id_user = ?, id_flower = ?, id_order = ? WHERE id = ?",
-    [order.id_user, order.id_flower, order.id_order, id],
+    "UPDATE `order` SET status = ? WHERE id = ?",
+    [status, id],
     (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -102,11 +101,12 @@ Order.updateById = (id, order, result) => {
         return;
       }
 
-      console.log("updated order: ", { id: id, ...order });
-      result(null, { id: id, ...order });
+      console.log("updated order status: ", { id: id, status: status });
+      result(null, { id: id, status: status });
     }
   );
 };
+
 
 // Xóa một bản ghi theo ID
 Order.remove = (id, result) => {
