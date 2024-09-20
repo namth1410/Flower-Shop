@@ -26,6 +26,24 @@
         color: #333;
       }
 
+      .navigation {
+        text-align: right;
+        margin-bottom: 20px;
+      }
+
+      .navigation a {
+        text-decoration: none;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+      }
+
+      .navigation a:hover {
+        background-color: #0056b3;
+      }
+
       form {
         margin-bottom: 20px;
       }
@@ -112,6 +130,10 @@
   </head>
   <body>
     <div class="container">
+      <h1>Quản lý sản phẩm</h1>
+      <div class="navigation">
+        <a href="manage-order.html">Quản lý đơn hàng</a>
+      </div>
       <h1>Nhập thông tin sản phẩm</h1>
       <form id="product-form">
         <label for="product-image">Chọn ảnh:</label>

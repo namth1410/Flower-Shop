@@ -1,4 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  if (user?.role !== "admin") {
+    window.location.href = "/index.html";
+    // window.location.href = "/DATN/DATN/index.html";
+  }
   const form = document.getElementById("product-form");
   const productList = document.getElementById("product-list");
   const searchInput = document.getElementById("search-input");

@@ -34,10 +34,14 @@ document
       console.log(result);
 
       if (result.message) {
-        // Xử lý đăng nhập thành công
         alert(`Login failed: ${result.message}`);
       } else {
         localStorage.setItem("user", JSON.stringify(result));
+        if (result.role === "admin") {
+          window.location.href = "/manage.html";
+          // window.location.href = "/DATN/DATN/manage.html";
+          return
+        }
         window.location.href = "/index.html";
         // window.location.href = "/DATN/DATN/index.html";
       }

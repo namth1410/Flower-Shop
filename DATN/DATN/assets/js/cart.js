@@ -254,8 +254,8 @@ document
     };
 
     // /DATN/DATN
-    fetch("http://namth.muotacademy.com:8080/order/create_payment_url", {
-    // fetch("http://localhost:8888/order/create_payment_url", {
+    // fetch("http://namth.muotacademy.com:8080/order/create_payment_url", {
+    fetch("http://localhost:8888/order/create_payment_url", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
