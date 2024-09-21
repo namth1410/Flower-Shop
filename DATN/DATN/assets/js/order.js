@@ -61,7 +61,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Lưu dữ liệu vào localStorage
   const dataSaveToLocal = JSON.parse(localStorage.getItem("order"));
-
+  console.log(dataSaveToLocal);
+  
   if (!dataSaveToLocal) {
     fetchOrderByUserId(1);
     return;

@@ -11,8 +11,8 @@ document.addEventListener("DOMContentLoaded", function () {
       // Clear existing tbody content
       tbody.innerHTML = "";
       let subTotal = 0.0;
-      const subTotalElement = document.getElementById("sub_total");
-      const totalAmountElement = document.getElementById("total-amount");
+      // const subTotalElement = document.getElementById("sub_total");
+      // const totalAmountElement = document.getElementById("total-amount");
       // Loop through each cart item and create rows
       data.forEach((item) => {
         const subtotal = (parseFloat(item.flower.cost) * item.quantity).toFixed(
@@ -52,8 +52,8 @@ document.addEventListener("DOMContentLoaded", function () {
         tbody.insertAdjacentHTML("beforeend", row);
       });
 
-      subTotalElement.textContent = `$${subTotal.toFixed(2)}`;
-      totalAmountElement.textContent = `$${(subTotal + 70).toFixed(2)}`;
+      // subTotalElement.textContent = `$${subTotal.toFixed(2)}`;
+      // totalAmountElement.textContent = `$${(subTotal + 70).toFixed(2)}`;
 
       const removeButtons = document.querySelectorAll(".remove-item");
       removeButtons.forEach((button) => {

@@ -1,5 +1,7 @@
-function updateCart() {
+function updateCartV1() {
   const user = JSON.parse(localStorage.getItem("user"));
+
+  console.log(user);
 
   const url = `http://namth.muotacademy.com:8080/api/cart?id_user=${user.id}`;
 
@@ -81,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const url = `http://namth.muotacademy.com:8080/api/cart?id_user=${user.id}`;
   const tbody = document.querySelector("tbody");
-  updateCart();
+  updateCartV1();
 
   // Fetch data from the API
   fetch(url)
@@ -135,6 +137,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       subTotalElement.textContent = `$${subTotal.toFixed(2)}`;
       totalAmountElement.textContent = `$${(subTotal + 70).toFixed(2)}`;
+
       const updateQuantity = (id_flower, change) => {
         const url = `http://namth.muotacademy.com:8080/api/cart`;
         const payload = {
@@ -153,7 +156,8 @@ document.addEventListener("DOMContentLoaded", function () {
           .then((response) => response.json())
           .then((data) => {
             console.log("Quantity updated:", data);
-            updateCart();
+            updateCartV1();
+            console.log("sad");
           })
           .catch((error) => {
             console.error("Error updating quantity:", error);
@@ -161,6 +165,7 @@ document.addEventListener("DOMContentLoaded", function () {
       };
 
       const quantityButtons = document.querySelectorAll(".qtybutton");
+
       quantityButtons.forEach((button) => {
         button.addEventListener("click", function () {
           const id_flower = this.getAttribute("data-id");
@@ -209,7 +214,7 @@ document.addEventListener("DOMContentLoaded", function () {
           event.preventDefault();
           const id = this.getAttribute("data-id");
           console.log("Removing item with ID:", id);
-          updateCart();
+          updateCartV1();
 
           // Call your API to remove the item using the ID
           fetch(`http://namth.muotacademy.com:8080/api/cart/${id}`, {
